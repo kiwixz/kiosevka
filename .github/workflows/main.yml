@@ -1,0 +1,27 @@
+name: main
+on: [push, pull_request]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    container: debian:13
+    steps:
+    - name: Install dependencies
+      run: |
+        apt-get update
+        apt-get -y install git npm ttfautohint
+    - name: Checkout
+      uses: actions/checkout@v5
+    - name: Clone Iosevka
+      run: git clone -b v33.3.6 --depth 1 "https://github.com/be5invis/iosevka"
+    - name: Copy build plan
+      run: cp "private-build-plans.toml" "iosevka/"
+    - name: Build
+      working-directory: "iosevka"
+      run: |
+        npm install
+        npm run build contents::Kiosevka
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        path: "iosevka/dist"
