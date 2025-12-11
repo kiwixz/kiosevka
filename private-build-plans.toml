@@ -1,0 +1,12 @@
+[buildPlans.Kiosevka]
+family = "Kiosevka"
+
+[buildPlans.Kiosevka.variants]
+inherits = "ss20"  # curly
+underscore = "low"
+
+[buildPlans.Kiosevka.ligations]
+enables = ["kern-bars", "kern-dotty"]
+
+[buildPlans.Kiosevka.widths]
+Normal = "default.Normal"
